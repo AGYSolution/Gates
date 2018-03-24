@@ -49,6 +49,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ITI.Gates.Console.Dll\ITI.Gates.Console.Dll.csproj">
+      <Project>{7c94a58b-b831-424f-9511-16180bfb880a}</Project>
+      <Name>ITI.Gates.Console.Dll</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
