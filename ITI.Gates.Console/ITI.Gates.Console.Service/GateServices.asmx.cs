@@ -88,6 +88,23 @@ namespace ITI.Gates.Console.Service
         }
 
         [WebMethod]
+        public bool UpdateContInOutGateIn(long id, string location)
+        {
+            try
+            {
+
+                return contCardDAL.UpdateContCardInOutGateIn(id, location);
+
+            }
+            catch (Exception ex)
+            {
+                log.ErrorFormat("UpdateContInOutGateIn -> Parameter: id={0},location={1}", id, location);
+                log.ErrorFormat("UpdateContInOutGateIn -> Message: {0}", ex.Message);
+                log.ErrorFormat("UpdateContInOutGateIn -> StackTrace: {0}", ex.StackTrace);
+                return false;
+            }
+        }
+        [WebMethod]
         public bool UpdateContCardGateOut(long id, string location)
         {
             try
@@ -101,6 +118,23 @@ namespace ITI.Gates.Console.Service
                 log.ErrorFormat("UpdateContCardGateOut -> Parameter: id={0},location={1}", id, location);
                 log.ErrorFormat("UpdateContCardGateOut -> Message: {0}", ex.Message);
                 log.ErrorFormat("UpdateContCardGateOut -> StackTrace: {0}", ex.StackTrace);
+                return false;
+            }
+        }
+        [WebMethod]
+        public bool UpdateContInOutGateOut(long id, string location)
+        {
+            try
+            {
+
+                return contCardDAL.UpdateContCardInOutGateOut(id, location);
+
+            }
+            catch (Exception ex)
+            {
+                log.ErrorFormat("UpdateContInOutGateOut -> Parameter: id={0},location={1}", id, location);
+                log.ErrorFormat("UpdateContInOutGateOut -> Message: {0}", ex.Message);
+                log.ErrorFormat("UpdateContInOutGateOut -> StackTrace: {0}", ex.StackTrace);
                 return false;
             }
         }

@@ -315,7 +315,49 @@ namespace ITI.Gates.Console.DAL.DAL
                         npgsqlConnection.Open();
                     }
                     string query = "    UPDATE contcard " +
-                                    "   SET  dtm1=@Dtm1, loc1=@Loc1  " +
+                                    "   SET  dtm1=@Dtm1, loc1=@Loc1 ,cardmode=@flagact " +
+                                    "   WHERE contcardid=@ContCardID ";
+                    using (NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, npgsqlConnection))
+                    {
+
+                        npgsqlCommand.Parameters.AddWithValue("@ContCardID", contCardID);
+                        npgsqlCommand.Parameters.AddWithValue("@Dtm1", DateTime.Now);
+                        npgsqlCommand.Parameters.AddWithValue("@Loc1", location);
+                        npgsqlCommand.Parameters.AddWithValue("@flagact", "IN");
+                        rowAffected = npgsqlCommand.ExecuteNonQuery();
+                        if (rowAffected >= 1)
+                            result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Update Container In Out Gate In
+        /// </summary>
+        /// <param name="contCardID"></param>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public bool UpdateContCardInOutGateIn(long contCardID, string location)
+        {
+            bool result = false;
+
+            int rowAffected = 0;
+            try
+            {
+                using (NpgsqlConnection npgsqlConnection = AppConfig.GetConnection())
+                {
+                    if (npgsqlConnection.State == ConnectionState.Closed)
+                    {
+                        npgsqlConnection.Open();
+                    }
+                    string query = "    UPDATE contInOut " +
+                                    "   SET  dtmin=@Dtm1, location=@Loc1 " +
                                     "   WHERE contcardid=@ContCardID ";
                     using (NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, npgsqlConnection))
                     {
@@ -356,7 +398,50 @@ namespace ITI.Gates.Console.DAL.DAL
                         npgsqlConnection.Open();
                     }
                     string query = "    UPDATE contcard " +
-                                    "   SET  dtm1=@Dtm1, loc1=@Loc1  " +
+                                    "   SET  dtm2=@Dtm1, loc2=@Loc1 ,cardmode=@flagact " +
+                                    "   WHERE contcardid=@ContCardID ";
+                    using (NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, npgsqlConnection))
+                    {
+
+                        npgsqlCommand.Parameters.AddWithValue("@ContCardID", contCardID);
+                        npgsqlCommand.Parameters.AddWithValue("@Dtm1", DateTime.Now);
+                        npgsqlCommand.Parameters.AddWithValue("@Loc1", location);
+                        npgsqlCommand.Parameters.AddWithValue("@flagact", "OUT");
+
+                        rowAffected = npgsqlCommand.ExecuteNonQuery();
+                        if (rowAffected >= 1)
+                            result = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Update Container In Out Gate Out
+        /// </summary>
+        /// <param name="contCardID"></param>
+        /// <param name="location"></param>
+        /// <returns></returns>
+        public bool UpdateContCardInOutGateOut(long contCardID, string location)
+        {
+            bool result = false;
+
+            int rowAffected = 0;
+            try
+            {
+                using (NpgsqlConnection npgsqlConnection = AppConfig.GetConnection())
+                {
+                    if (npgsqlConnection.State == ConnectionState.Closed)
+                    {
+                        npgsqlConnection.Open();
+                    }
+                    string query = "    UPDATE contInOut " +
+                                    "   SET  dtmout=@Dtm1, location=@Loc1 " +
                                     "   WHERE contcardid=@ContCardID ";
                     using (NpgsqlCommand npgsqlCommand = new NpgsqlCommand(query, npgsqlConnection))
                     {
@@ -376,5 +461,8 @@ namespace ITI.Gates.Console.DAL.DAL
             }
             return result;
         }
+
+
+
     }
 }
